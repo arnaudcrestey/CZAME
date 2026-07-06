@@ -1,0 +1,1 @@
+export { alcoolKnowledge } from "./alcool"
