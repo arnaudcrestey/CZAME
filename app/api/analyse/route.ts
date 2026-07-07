@@ -46,9 +46,11 @@ function getMailTransporter() {
 }
 
 async function sendQuestionnaireNotification({
+  detectedSubject,
   vigilanceLevel,
   emergencyDetected,
 }: {
+  detectedSubject: string
   vigilanceLevel: string
   emergencyDetected: boolean
 }) {
@@ -69,6 +71,8 @@ async function sendQuestionnaireNotification({
 
 const text = [
   "C·ZAME — Nouveau questionnaire complété",
+  "",
+  `Sujet abordé : ${detectedSubject}`,
   "",
   `Date : ${formattedDate}`,
   "",
@@ -151,6 +155,7 @@ export async function POST(request: Request) {
       : parsed
 
     await sendQuestionnaireNotification({
+  detectedSubject: analysis.detectedSubject,
   vigilanceLevel: analysis.vigilanceLevel,
   emergencyDetected,
 })
