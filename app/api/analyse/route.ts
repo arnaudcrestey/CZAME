@@ -144,12 +144,12 @@ export async function POST(request: Request) {
         }
       : parsed
 
-    sendQuestionnaireNotification({
+    await sendQuestionnaireNotification({
   vigilanceLevel: analysis.vigilanceLevel,
   emergencyDetected,
-}).catch((error) => {
-  console.error("Erreur envoi e-mail :", error)
 })
+
+return NextResponse.json(analysis)
 
     return NextResponse.json(analysis)
   } catch (error) {
