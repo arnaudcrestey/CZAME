@@ -74,7 +74,16 @@ async function sendQuestionnaireNotification({
     "",
     "Aucun récit utilisateur n'est transmis dans cette notification.",
   ].join("\n")
-
+console.log("Tentative SMTP C·ZAME", {
+  host: process.env.SMTP_HOST,
+  port: process.env.SMTP_PORT,
+  secure: process.env.SMTP_SECURE,
+  user: Boolean(process.env.SMTP_USER),
+  pass: Boolean(process.env.SMTP_PASS),
+  from: process.env.MAIL_FROM,
+  to: process.env.MAIL_TO,
+})
+  
   await transporter.sendMail({
     from,
     to,
@@ -148,8 +157,13 @@ export async function POST(request: Request) {
       vigilanceLevel: analysis.vigilanceLevel,
       emergencyDetected,
     }).catch((error) => {
-      console.error("Erreur envoi e-mail :", error)
-    })
+  console.error("Erreur envoi e-mail C·ZAME :", {
+    message: error?.message,
+    code: error?.code,
+    command: error?.command,
+    response: error?.response,
+  })
+})
 
     return NextResponse.json(analysis)
   } catch (error) {
