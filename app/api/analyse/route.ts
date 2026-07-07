@@ -63,17 +63,23 @@ async function sendQuestionnaireNotification({
 
   const subject = "C·ZAME — Nouveau questionnaire complété"
 
-  const text = [
-    "Nouveau questionnaire C·ZAME complété.",
-    "",
-    `Date : ${completedAt.toLocaleString("fr-FR", {
-      timeZone: "Europe/Paris",
-    })}`,
-    `Niveau de vigilance : ${vigilanceLevel}`,
-    `Signal d'urgence détecté : ${emergencyDetected ? "oui" : "non"}`,
-    "",
-    "Aucun récit utilisateur n'est transmis dans cette notification.",
-  ].join("\n")
+  const formattedDate = completedAt.toLocaleString("fr-FR", {
+  timeZone: "Europe/Paris",
+})
+
+const text = [
+  "C·ZAME — Nouveau questionnaire complété",
+  "",
+  `Date : ${formattedDate}`,
+  "",
+  `Niveau de vigilance : ${vigilanceLevel}`,
+  `Signal d'urgence détecté : ${emergencyDetected ? "oui" : "non"}`,
+  "",
+  "Confidentialité :",
+  "Aucun récit utilisateur n'est transmis dans cette notification.",
+  "",
+  "Site : https://www.czame.fr",
+].join("\n")
 
 
 await transporter.sendMail({
