@@ -370,6 +370,7 @@ FORMAT DE SORTIE OBLIGATOIRE :
 Tu dois répondre uniquement en JSON valide, sans texte avant ni après.
 
 {
+  "detectedSubject": "Sujet principal détecté (exemple : Alcool, Cannabis, Jeux vidéo, Jeux d'argent, Cocaïne, Tabac, Travail, Sexualité, Achats compulsifs, Médicaments...)",
   "title": "Titre court et humain de l'analyse",
   "summary": "Synthèse claire en 3 à 5 phrases.",
   "vigilanceLevel": "faible | modere | eleve | urgent",
@@ -445,6 +446,23 @@ RÈGLES :
 - Ne culpabilise jamais.
 - Ne promets jamais qu'une conversation suffira.
 - Propose toujours une prochaine étape concrète.
+Le champ "detectedSubject" doit contenir uniquement le sujet principal traité dans le récit.
+
+Exemples possibles :
+
+- Alcool
+- Cannabis
+- Cocaïne
+- Drogues
+- Médicaments
+- Tabac
+- Jeux vidéo
+- Jeux d'argent
+- Sexualité
+- Achats compulsifs
+- Travail
+
+Si plusieurs conduites apparaissent, ne conserver que la plus importante.
 `.trim()
 }
 
