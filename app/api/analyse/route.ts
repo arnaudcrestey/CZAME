@@ -84,7 +84,8 @@ console.log("Tentative SMTP C·ZAME", {
   to: process.env.MAIL_TO,
 })
   
-  await transporter.sendMail({
+  await transporter.verify()
+console.log("Connexion SMTP OK")
     from,
     to,
     subject,
