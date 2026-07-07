@@ -74,18 +74,7 @@ async function sendQuestionnaireNotification({
     "",
     "Aucun récit utilisateur n'est transmis dans cette notification.",
   ].join("\n")
-console.log("Tentative SMTP C·ZAME", {
-  host: process.env.SMTP_HOST,
-  port: process.env.SMTP_PORT,
-  secure: process.env.SMTP_SECURE,
-  user: Boolean(process.env.SMTP_USER),
-  pass: Boolean(process.env.SMTP_PASS),
-  from: process.env.MAIL_FROM,
-  to: process.env.MAIL_TO,
-})
-  
-  await transporter.verify()
-console.log("Connexion SMTP OK")
+
 
 await transporter.sendMail({
     from,
@@ -155,10 +144,11 @@ export async function POST(request: Request) {
         }
       : parsed
 
-    // Notification par e-mail (non bloquante)
-    await sendQuestionnaireNotification({
+    sendQuestionnaireNotification({
   vigilanceLevel: analysis.vigilanceLevel,
   emergencyDetected,
+}).catch((error) => {
+  console.error("Erreur envoi e-mail :", error)
 })
 
     return NextResponse.json(analysis)
