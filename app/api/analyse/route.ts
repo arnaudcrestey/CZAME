@@ -156,16 +156,9 @@ export async function POST(request: Request) {
       : parsed
 
     // Notification par e-mail (non bloquante)
-    sendQuestionnaireNotification({
-      vigilanceLevel: analysis.vigilanceLevel,
-      emergencyDetected,
-    }).catch((error) => {
-  console.error("Erreur envoi e-mail C·ZAME :", {
-    message: error?.message,
-    code: error?.code,
-    command: error?.command,
-    response: error?.response,
-  })
+    await sendQuestionnaireNotification({
+  vigilanceLevel: analysis.vigilanceLevel,
+  emergencyDetected,
 })
 
     return NextResponse.json(analysis)
